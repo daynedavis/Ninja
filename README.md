@@ -1,4 +1,4 @@
-dayneNinja
+Ninja
 ==========
 
 dayne.ninja
