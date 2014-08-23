@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         src: ['build']
       },
       stylesheets: {
-        src: ['build/**/*.css', 'build/**/*.scss', '!build/assets/application.css']
+        src: ['build/**/*.css', 'build/**/*.scss', 'build/**/*.less', '!build/assets/application.css']
       },
       scripts: {
         src: ['build/**/*.js', '!build/vendor/application.js']
