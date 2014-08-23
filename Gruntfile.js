@@ -16,15 +16,89 @@ module.exports = function(grunt) {
       build: {
         src: ['build']
       },
+      stylesheets: {
+        src: ['build/**/*.css', 'build/**/*.scss', '!build/assets/application.css']
+      },
+      scripts: {
+        src: ['build/**/*.js', '!build/vendor/application.js']
+      },
+    },
+
+    bower: {
+      dev: {
+        dest: 'build/vendor',
+        options: {
+          packageSpecific: {
+            bootstrap: {
+              dest: 'build/assets/fonts'
+            }
+          }
+        }
+      }
     },
 
     sass: {
       dist: {
         files: {
-          'build/assets/application.css' : 'src/sass/**/*.scss'
+          'build/assets/main.css' : 'src/sass/**/*.scss'
         }
       }
     },
+
+    cssmin: {
+      build: {
+        files: {
+          'build//assets/application.css': ['build/**/*.css']
+        }
+      }
+    },
+
+    uglify: {
+      build: {
+        options: {
+          mangle: false
+        },
+        files: {
+          'build/vendor/application.js': ['build/**/*.js']
+        }
+      }
+    },
+
+    watch: {
+
+      stylesheets: {
+        files: 'src/**/*.scss',
+        tasks: ['stylesheets'],
+        options: {
+          livereload: true
+        }
+      },
+      scripts: {
+        files: 'src/**/*.js',
+        tasks: ['scripts'],
+        options: {
+          livereload: true
+        }
+      },
+      copy: {
+        files: ['src/**', '!rc/**/*.scss', '!src/**/*.js'],
+        tasks: ['copy'],
+        options: {
+          livereload: true
+        }
+      }
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: 4000,
+          base: 'build',
+          hostname: '*',
+          livereload: true
+        },
+      }
+    }
 
   });
 
@@ -32,11 +106,34 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-bower');
 
   // define the tasks
   grunt.registerTask(
+    'stylesheets',
+    'Compiles the stylesheets.',
+    ['sass', 'cssmin', 'clean:stylesheets']
+  );
+
+  grunt.registerTask(
+    'scripts',
+    'Compiles the JavaScript files.',
+    ['uglify', 'clean:scripts']
+  );
+
+  grunt.registerTask(
     'build',
     'Compiles all of the assets and copies the files to the build directory.',
-    ['clean', 'copy']
+    ['clean:build', 'copy', 'bower', 'stylesheets', 'scripts']
+  );
+
+  grunt.registerTask(
+    'default',
+    'Watches the project for changes, automatically builds them and runs a server.',
+    ['build', 'connect', 'watch']
   );
 };
