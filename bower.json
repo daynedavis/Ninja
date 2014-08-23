@@ -1,0 +1,30 @@
+{
+  "name": "Ninja",
+  "version": "0.0.1",
+  "homepage": "https://github.com/daynedavis/Ninja",
+  "authors": [
+    "Dayne Davis <daynedavis@protonmail.ch>"
+  ],
+  "license": "All Rights Reserved",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.0",
+    "angular-animate": "~1.3.0",
+    "angular-route": "~1.3.0",
+    "angular-sanitize": "~1.3.0",
+    "angular-ui-router": "~0.2.0",
+    "bourbon": "~3.2.3",
+    "font-awesome": "~4.1.0",
+    "jquery": "2.1.1",
+    "lodash": "~2.4.1",
+    "bootstrap": "~3.2.0",
+    "bootstrap-sass-official": "~3.2.0"
+  }
+}
