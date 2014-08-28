@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         src: ['build/**/*.css', 'build/**/*.scss', 'build/**/*.less', '!build/assets/application.css']
       },
       scripts: {
-        src: ['build/**/*.js', '!build/vendor/application.js']
+        src: ['build/**/*.js', '!build/vendor/application.js', '!build/server.js']
       },
     },
 
@@ -51,6 +51,16 @@ module.exports = function(grunt) {
           'build//assets/application.css': ['build/**/*.css']
         }
       }
+    },
+
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['build/vendor/jquery.js', 'build/vendor/angular.js', 'build/**/*.js', '!build/server.js'],
+        dest: 'build/vendor/application.js',
+      },
     },
 
     uglify: {
@@ -92,7 +102,7 @@ module.exports = function(grunt) {
     connect: {
       server: {
         options: {
-          port: 80,
+          port: 8080,
           base: 'build',
           hostname: '*',
           livereload: true
@@ -107,6 +117,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -122,7 +133,7 @@ module.exports = function(grunt) {
   grunt.registerTask(
     'scripts',
     'Compiles the JavaScript files.',
-    ['uglify', 'clean:scripts']
+    ['concat', 'clean:scripts']
   );
 
   grunt.registerTask(
