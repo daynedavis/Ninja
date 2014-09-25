@@ -10,6 +10,12 @@ module.exports = function(grunt) {
         dest: 'build',
         expand: true
       },
+      scripts: {
+        cwd: 'src',
+        src: ['**/*.js'],
+        dest: 'build',
+        expand: true
+      },
     },
 
     clean: {
@@ -21,6 +27,9 @@ module.exports = function(grunt) {
       },
       scripts: {
         src: ['build/**/*.js', '!build/vendor/application.js', '!build/server.js']
+      },
+      app: {
+        src: ['build/vendor/application.js']
       },
     },
 
@@ -85,7 +94,7 @@ module.exports = function(grunt) {
       },
       scripts: {
         files: 'src/**/*.js',
-        tasks: ['scripts'],
+        tasks: ['clean:app', 'copy:scripts', 'bower', 'scripts'],
         options: {
           livereload: true
         }
