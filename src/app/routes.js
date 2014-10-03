@@ -20,14 +20,10 @@ angular.module("ninja.routes", ["ui.router"])
       }
     })
 
-    .state("aboutUs", {
-      url: "/aboutus",
+    .state("home.aboutUs", {
+      url: "aboutus",
       views: {
-        "main@": {
-          controller: "MainController",
-          templateUrl: "app/templates/layouts/home.tpl.html"
-        },
-        "content@aboutUs": {
+        "content@home": {
           controller: "MainController",
           templateUrl: "app/templates/views/aboutus.tpl.html"
         }

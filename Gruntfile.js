@@ -1,5 +1,22 @@
 module.exports = function(grunt) {
 
+  function rewriteIndexMiddleware(connect, options) {
+    var base = 'build';
+    return [
+      connect.static(base),
+      function (req, res, next) {
+        // no file found; send index.html
+        var file = base + "/index.html";
+        if (grunt.file.exists(file)) {
+          require("fs").createReadStream(file).pipe(res);
+          return;
+        }
+        res.statusCode(404);
+        res.end();
+      }
+    ];
+  }
+
   // configure the tasks
   grunt.initConfig({
 
@@ -112,7 +129,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 8080,
-          base: 'build',
+          middleware: rewriteIndexMiddleware,
           hostname: '*',
           livereload: true
         },
