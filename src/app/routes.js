@@ -12,6 +12,24 @@ angular.module("ninja.routes", ["ui.router"])
         "main@": {
           controller: "MainController",
           templateUrl: "app/templates/layouts/home.tpl.html"
+        },
+        "content@home": {
+          controller: "MainController",
+          templateUrl: "app/templates/views/home.tpl.html"
+        }
+      }
+    })
+
+    .state("aboutUs", {
+      url: "/aboutus",
+      views: {
+        "main@": {
+          controller: "MainController",
+          templateUrl: "app/templates/layouts/home.tpl.html"
+        },
+        "content@aboutUs": {
+          controller: "MainController",
+          templateUrl: "app/templates/views/aboutus.tpl.html"
         }
       }
     });
