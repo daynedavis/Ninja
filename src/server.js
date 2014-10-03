@@ -18,7 +18,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 
 // application ---------------------------------------------
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
   res.sendfile('./index.html'); // load the single view file
 });
 
